@@ -63,6 +63,8 @@ p_dict = aruco.getPredefinedDictionary(aruco.DICT_7X7_50)
 # 表画像のマーカー中心読み込み
 mean_front = np.zeros((2, 2))
 corners, ids, rejectedImgPoints = aruco.detectMarkers(imgs[0], p_dict)
+# 切り出し時に仕様する座標の保存
+corner_x=corners[0][0][0][0]
 # print(f'表画像のids：{ids}')
 for j, read_id in enumerate(read_ids_front):
     mean_front[j] = getMarkerMean(ids, corners, read_id)
@@ -163,6 +165,14 @@ else:
     y_start=int(mean_front[1][1])
     y_end=int(mean_front[0][1])
 
+# pad=300
+pad=abs(int(mean_front[0][0]-corner_x))
+pad=pad*2
+# padが大きすぎた場合の対応必要？
+x_start-=pad
+x_end+=pad
+y_start-=pad
+y_end+=pad
 
 synthesized_img_trimmed=synthesized_img[y_start:y_end,x_start:x_end]
 
