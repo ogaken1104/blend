@@ -1,0 +1,9 @@
+detected Marker coordinate
+front
+id=0:(6003.75, 5979.75)
+id=1:(549.0, 405.25)
+back
+id=1:(6113.931695983922, 6043.5071590520365)
+id=0:(659.4111403847778, 469.2416405243812)
+marker distance of front:7799.317137576853
+marker distance of back:7798.989073110693
