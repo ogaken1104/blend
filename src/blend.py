@@ -148,8 +148,26 @@ back_warped = cv2.warpAffine(
 )
 
 synthesized_img = imgs[0]*alpha+back_warped*(1-alpha)
+# 余分な領域を切り取る
+if mean_front[0][0] < mean_front[1][0]:
+    x_start=int(mean_front[0][0])
+    x_end=int(mean_front[1][0])
+else:
+    x_start=int(mean_front[1][0])
+    x_end=int(mean_front[0][0])
+
+if mean_front[0][1] < mean_front[1][1]:
+    y_start=int(mean_front[0][1])
+    y_end=int(mean_front[1][1])
+else:
+    y_start=int(mean_front[1][1])
+    y_end=int(mean_front[0][1])
+
+
+synthesized_img_trimmed=synthesized_img[y_start:y_end,x_start:x_end]
+
 filename = os.path.join(dir_path, args.project+"_blended.png")
-cv2.imwrite(filename, synthesized_img)
+cv2.imwrite(filename, synthesized_img_trimmed)
 
 with open(os.path.join(dir_path, 'memo.txt'), 'w') as f:
     f.writelines([
