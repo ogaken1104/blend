@@ -16,6 +16,8 @@ read_ids_back = [1, 0]
 alpha = 0.5
 # 必要に応じてmean_back(裏画像のマーカー中心座標)の値を補正する
 back_correct = np.array([[0., 0.], [0., 0.]], np.float32)
+# 表、裏画像をそれぞれ保存するか否か
+save_each_imgs=False
 
 
 def getMarkerMean(ids, corners, index):
@@ -175,7 +177,15 @@ y_start-=pad
 y_end+=pad
 
 synthesized_img_trimmed=synthesized_img[y_start:y_end,x_start:x_end]
-
+# 位置変換、トリミングした表、裏画像の保存
+if save_each_imgs:
+    front_trimmed=imgs[0][y_start:y_end,x_start:x_end]
+    filename=os.path.join(dir_path,'front_trimmed.png')
+    cv2.imwrite(filename,front_trimmed)
+    back_warped_trimmed=back_warped[y_start:y_end,x_start:x_end]
+    filename=os.path.join(dir_path,'back_warped.png')
+    cv2.imwrite(filename,back_warped_trimmed)
+# 表裏合成結果の保存
 filename = os.path.join(dir_path, args.project+"_blended.png")
 cv2.imwrite(filename, synthesized_img_trimmed)
 
