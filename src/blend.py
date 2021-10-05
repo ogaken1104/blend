@@ -57,8 +57,6 @@ aruco = cv2.aruco
 imgs = []
 imgs.append(cv2.imread(os.path.join(dir_path, f'front.png')))
 imgs.append(cv2.imread(os.path.join(dir_path, f'back.png')))
-# imgs.append(cv2.imread(os.path.join(dir_path, f'{project_name}_front.jpg')))
-# imgs.append(cv2.imread(os.path.join(dir_path, f'{project_name}_back.jpg')))
 
 p_dict = aruco.getPredefinedDictionary(aruco.DICT_7X7_50)
 
